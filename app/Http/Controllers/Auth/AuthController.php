@@ -20,7 +20,6 @@ class AuthController extends Controller
                 'password' => bcrypt($request->password),
                 'phone_number' => $request->phone_number,
             ]);
-
         } catch (\Exception $e) {
             throw new \App\Exceptions\QueryDBException(__('Something went wrong.'));
         }
@@ -64,7 +63,7 @@ class AuthController extends Controller
     protected function initToken($user)
     {
         return $user->createToken(
-            date("Y-m-d H:i:s:ms"),
+            now()->timestamp,
             ['*'],
             config('sanctum.expiration') ? now()->addMinutes(config('sanctum.expiration')) : null
         )->plainTextToken;
