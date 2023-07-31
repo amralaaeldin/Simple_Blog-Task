@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\PostTagsController;
+use App\Http\Controllers\Api\StatsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,8 @@ Route::group(
         Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
             return $request->user();
         });
+
+        Route::get('/stats', [StatsController::class, 'index']);
 
         // tags routes
         Route::group([

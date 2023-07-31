@@ -18,7 +18,7 @@ class PostController extends Controller
                 Post::where('user_id', request()->user()->id)
                     ->orderByDesc('is_pinned')
                     ->with('user', 'tags')
-                    ->get()
+                    ->paginate(20)
             );
         } catch (\Exception $e) {
             throw new \App\Exceptions\QueryDBException(__('An error occurred while retrieving.'));
@@ -160,7 +160,7 @@ class PostController extends Controller
                     ->where('user_id', request()->user()->id)
                     ->orderByDesc('is_pinned')
                     ->with('user', 'tags')
-                    ->get()
+                    ->paginate(20)
             );
         } catch (\Exception $e) {
             throw new \App\Exceptions\QueryDBException(__('An error occurred while retrieving.'));

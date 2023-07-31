@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Events\ModelCreated;
+use App\Events\ModelUpdated;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -28,6 +30,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => ModelCreated::class,
+        'updated' => ModelUpdated::class,
     ];
 
     public function posts(): HasMany
